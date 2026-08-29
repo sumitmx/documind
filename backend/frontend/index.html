@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0c1324" />
+    <title>DocuMind — Document intelligence</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="/" aria-label="DocuMind home">
+          <span class="brand-mark">D</span>
+          <span>documind</span>
+        </a>
+
+        <section class="workspace-picker" aria-labelledby="workspace-picker-title">
+          <p class="eyebrow" id="workspace-picker-title">Workspace</p>
+          <div class="picker-row">
+            <label class="sr-only" for="project-select">Active project</label>
+            <select id="project-select" aria-label="Active project"></select>
+            <button class="picker-button" id="new-project-button" type="button" title="Create a new project">＋ New project</button>
+          </div>
+          <div class="picker-row">
+            <label class="sr-only" for="provider-select">AI provider</label>
+            <select id="provider-select" aria-label="AI provider">
+              <option value="gemini">Gemini</option>
+              <option value="openai">OpenAI GPT</option>
+              <option value="claude_cli">Claude Pro / CLI</option>
+            </select>
+            <button class="picker-button accent" id="index-button" type="button"><span class="spark">✦</span> Re-index</button>
+          </div>
+        </section>
+
+        <section class="library-panel" aria-labelledby="library-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Knowledge base</p>
+              <h2 id="library-title">Project library</h2>
+            </div>
+            <span class="count-badge" id="document-count">0</span>
+          </div>
+          <div class="documents" id="documents">
+            <p class="empty-list">Loading library…</p>
+          </div>
+          <label class="button secondary upload-button" for="file-input">
+            <span>＋</span> Add document
+          </label>
+          <input id="file-input" type="file" accept=".pdf,.md,.txt" hidden />
+        </section>
+
+        <section class="chat-panel" aria-labelledby="chat-title">
+          <div class="section-heading">
+            <div><p class="eyebrow">Conversations</p><h2 id="chat-title">Chat history</h2></div>
+            <button class="sidebar-new-chat" id="sidebar-new-chat" type="button" data-tooltip="New chat" aria-label="Start a new chat">＋</button>
+          </div>
+          <div class="chat-list" id="chat-list"><p class="empty-list">No saved chats yet.</p></div>
+        </section>
+
+        <div class="index-status" id="index-status" aria-live="polite">
+          <span class="status-dot"></span>
+          <span>Checking library status…</span>
+        </div>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Document intelligence</p>
+            <h1 id="project-heading">General library</h1>
+          </div>
+          <div class="topbar-actions">
+            <div class="topbar-actions-row">
+              <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light mode">🌙</button>
+              <div class="privacy-note"><span>◈</span> AI-powered workspace</div>
+            </div>
+            <button class="remove-project-button" id="remove-project-button" type="button">Remove project</button>
+          </div>
+        </header>
+
+        <section class="conversation" id="conversation" aria-live="polite">
+          <article class="welcome-card" id="welcome-card">
+            <div class="orb">✦</div>
+            <p class="eyebrow">Ready when you are</p>
+            <h2>Turn your documents into answers.</h2>
+            <p>Index your library, then ask a focused question. Every response is grounded in retrieved passages and includes its sources.</p>
+            <div class="suggestions">
+              <button type="button" data-question="What are the most important things I should know?">What should I know first?</button>
+              <button type="button" data-question="Summarize the key responsibilities described in these documents.">Summarize key responsibilities</button>
+              <button type="button" data-question="What decisions or next steps are mentioned?">Find decisions and next steps</button>
+            </div>
+          </article>
+        </section>
+
+        <form class="composer" id="question-form">
+          <label class="sr-only" for="question">Ask a question about your documents</label>
+          <textarea id="question" rows="1" maxlength="4000" placeholder="Ask a question about your documents…"></textarea>
+          <button id="send-button" class="send-button" type="submit" aria-label="Send question">↑</button>
+          <p class="composer-hint">Answers are based on the passages retrieved from your indexed library.</p>
+        </form>
+      </section>
+    </main>
+    <div class="toast" id="toast" role="status"></div>
+    <script src="app.js"></script>
+  </body>
+</html>

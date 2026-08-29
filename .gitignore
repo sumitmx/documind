@@ -5,3 +5,9 @@ __pycache__/
 test_key.py
 docs/*
 !docs/.gitkeep
+data/index.json
+data/chats.json
+data/*.tmp
+data/*.log
+projects/*
+!projects/.gitkeep

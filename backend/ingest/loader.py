@@ -15,7 +15,9 @@ class Document:
 def _read_pdf(path: Path) -> str:
     reader = PdfReader(path)
     pages = [page.extract_text() or "" for page in reader.pages]
-    return "\n\n".join(pages)
+    # pypdf occasionally decodes malformed embedded fonts into literal NUL bytes,
+    # which Postgres text columns reject outright.
+    return "\n\n".join(pages).replace("\x00", "")
 
 
 def _read_markdown(path: Path) -> str:
