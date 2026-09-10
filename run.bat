@@ -10,6 +10,16 @@ if not exist ".venv\Scripts\python.exe" (
     exit /b 1
 )
 
+echo Checking prerequisites...
+echo.
+".venv\Scripts\python.exe" -m backend.preflight
+if errorlevel 1 (
+    echo.
+    pause
+    exit /b 1
+)
+
+echo.
 echo Starting DocuMind portal...
 echo Open http://127.0.0.1:8000 in your browser once it's ready.
 echo Press Ctrl+C to stop the server.
